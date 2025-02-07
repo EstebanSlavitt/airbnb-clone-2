@@ -1,7 +1,7 @@
-require "test_helper"
+test "index" do
+  get "/listings.json"
+  assert_response 200
 
-class ListingsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  data = JSON.parse(response.body)
+  assert_equal Listing.count, data.length
 end
