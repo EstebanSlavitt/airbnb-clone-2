@@ -12,4 +12,19 @@ class ListingsController < ApplicationController
       render json: { error: "Listing not found" }, status: :not_found
     end
   end
+
+  def update
+    @listing = Listing.find_by(id: params[:id])
+    if @listing
+      @listing.update(
+        title: params[:title] || @listing.title,
+        description: params[:description] || @listing.description,
+        price_per_night: params[:price_per_night] || @listing.price_per_night,
+        location: params[:location] || @listing.location
+      )
+      render :show
+    else
+      render json: { error: "Listing not found" }, status: :not_found
+    end
+  end
 end
