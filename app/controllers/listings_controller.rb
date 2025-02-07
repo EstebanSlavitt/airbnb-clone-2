@@ -27,4 +27,14 @@ class ListingsController < ApplicationController
       render json: { error: "Listing not found" }, status: :not_found
     end
   end
+
+  def destroy
+    @listing = Listing.find_by(id: params[:id])
+    if @listing
+      @listing.destroy
+      render json: { message: "Listing destroyed successfully" }
+    else
+      render json: { error: "Listing not found" }, status: :not_found
+    end
+  end
 end
